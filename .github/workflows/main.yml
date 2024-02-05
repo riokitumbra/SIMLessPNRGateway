@@ -16,32 +16,25 @@ jobs:
 
       - name: Set up MRYIPC
         run: |
-          cp ${{ github.workspace }}/MRYIPC/MRYIPCCenter.h $THEOS/include
-          cp ${{ github.workspace }}/MRYIPC/usr/lib/libmryipc.dylib $THEOS/lib
+          cp "${{ github.workspace }}/MRYIPC/MRYIPCCenter.h" "$THEOS/include"
+          cp "${{ github.workspace }}/MRYIPC/usr/lib/libmryipc.dylib" "$THEOS/lib"
 
       - name: Build package
         run: |
           export PATH="/usr/local/opt/make/libexec/gnubin:$PATH"
-          export PACKAGE_BUILDNAME=$(git rev-parse --short HEAD)-rootful
-          make
-          ls ${{ github.workspace }}
-          echo "."
-          ls ${{ github.workspace }}/pnrsender/
-          echo "."
-          ls ${{ github.workspace }}/pnrsender/packages
-          echo "."
-          ls ${{ github.workspace }}/theos/
+          make -C "${{ github.workspace }}/pnrsender/" clean package FINALPACKAGE=1
+          make -C "${{ github.workspace }}/receivepnr/" clean package FINALPACKAGE=1
 
       - name: Upload package
         uses: actions/upload-artifact@v4
         with:
-          path: ${{ github.workspace }}/packages/dev.altavision.pnrsender_*.deb
+          path: "${{ github.workspace }}/pnrsender/packages/dev.altavision.pnrsender_*.deb"
           name: pnrsender
           if-no-files-found: error
       - name: Upload package
         uses: actions/upload-artifact@v4
         with:
-          path: ${{ github.workspace }}/packages/dev.altavision.receivepnr_*.deb
+          path: "${{ github.workspace }}/receivepnr/packages/dev.altavision.receivepnr_*.deb"
           name: receivepnr
           if-no-files-found: error
   release:
