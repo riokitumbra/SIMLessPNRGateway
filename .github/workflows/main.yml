@@ -26,11 +26,11 @@ jobs:
           make
           ls ${{ github.workspace }}
           echo "."
-          ls ${{ github.workspace }}/packages
-          echo "."
           ls ${{ github.workspace }}/pnrsender/
           echo "."
           ls ${{ github.workspace }}/pnrsender/packages
+          echo "."
+          ls ${{ github.workspace }}/theos/
 
       - name: Upload package
         uses: actions/upload-artifact@v4
