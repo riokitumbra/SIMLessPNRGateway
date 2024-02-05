@@ -24,17 +24,24 @@ jobs:
           export PATH="/usr/local/opt/make/libexec/gnubin:$PATH"
           export PACKAGE_BUILDNAME=$(git rev-parse --short HEAD)-rootful
           make
+          ls ${{ github.workspace }}
+          echo "."
+          ls ${{ github.workspace }}/packages
+          echo "."
+          ls ${{ github.workspace }}/pnrsender/
+          echo "."
+          ls ${{ github.workspace }}/pnrsender/packages
 
       - name: Upload package
         uses: actions/upload-artifact@v4
         with:
-          path: ./packages/dev.altavision.pnrsender_*.deb
+          path: ${{ github.workspace }}/packages/dev.altavision.pnrsender_*.deb
           name: pnrsender
           if-no-files-found: error
       - name: Upload package
         uses: actions/upload-artifact@v4
         with:
-          path: ./packages/dev.altavision.receivepnr_*.deb
+          path: ${{ github.workspace }}/packages/dev.altavision.receivepnr_*.deb
           name: receivepnr
           if-no-files-found: error
   release:
