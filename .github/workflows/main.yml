@@ -23,7 +23,7 @@ jobs:
         run: |
           export PATH="/usr/local/opt/make/libexec/gnubin:$PATH"
           export PACKAGE_BUILDNAME=$(git rev-parse --short HEAD)-rootful
-          make clean package FINALPACKAGE=1
+          make
 
       - name: Upload package
         uses: actions/upload-artifact@v4
