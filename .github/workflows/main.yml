@@ -51,11 +51,15 @@ jobs:
         id: tag
         run: echo tag=$(git rev-parse --short HEAD) >> $GITHUB_OUTPUT
 
+      - name: Debug
+        run: |
+          ls
+
       - name: Create release
         uses: softprops/action-gh-release@v1
         with:
           tag_name: ${{ steps.tag.outputs.tag }}
           fail_on_unmatched_files: true
-          files:
-            ./pnrsender/packages/dev.altavision.pnrsender_*.deb
-            ./receivepnr/packages/dev.altavision.receivepnr_*.deb
+          files: |
+            pnrsender/dev.altavision.pnrsender_*.deb
+            receivepnr/dev.altavision.receivepnr_*.deb
