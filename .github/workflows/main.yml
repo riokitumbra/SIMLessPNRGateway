@@ -51,10 +51,6 @@ jobs:
         id: tag
         run: echo tag=$(git rev-parse --short HEAD) >> $GITHUB_OUTPUT
 
-      - name: Debug
-        run: |
-          ls
-
       - name: Create release
         uses: softprops/action-gh-release@v1
         with:
