@@ -43,7 +43,7 @@ NSString * const DUMMY_IMSI = @"310410777777778";
 
 
         NSError *error;
-        NSString *fileContents = [NSString stringWithContentsOfFile:@"/pnr_android_number.txt" encoding:NSUTF8StringEncoding error:&error];
+        NSString *fileContents = [NSString stringWithContentsOfFile:@"/var/mobile/Library/Preferences/pnr_android_number.txt" encoding:NSUTF8StringEncoding error:&error];
 
         if (error) {
             NSLog(@"PNRGateway: Error reading phone number from file: %@", error);
@@ -65,7 +65,7 @@ NSString * const DUMMY_IMSI = @"310410777777778";
         %log;
 
         NSError *error;
-        NSString *fileContents = [NSString stringWithContentsOfFile:@"/pnr_android_number.txt" encoding:NSUTF8StringEncoding error:&error];
+        NSString *fileContents = [NSString stringWithContentsOfFile:@"/var/mobile/Library/Preferences/pnr_android_number.txt" encoding:NSUTF8StringEncoding error:&error];
 
         if (error) {
             NSLog(@"PNRGateway: Error reading phone number from file: %@", error);
@@ -86,7 +86,7 @@ NSString * const DUMMY_IMSI = @"310410777777778";
         NSLog(@"PNRGateway: Got initWithType call");
 
         NSError *error;
-        NSString *fileContents = [NSString stringWithContentsOfFile:@"/pnr_android_number.txt" encoding:NSUTF8StringEncoding error:&error];
+        NSString *fileContents = [NSString stringWithContentsOfFile:@"/var/mobile/Library/Preferences/pnr_android_number.txt" encoding:NSUTF8StringEncoding error:&error];
 
         if (error) {
             NSLog(@"PNRGateway: Error reading phone number from file: %@", error);
@@ -459,7 +459,7 @@ MSHook(int, _CTServerConnectionIsUserIdentityModuleRequired, void* arg1, void* a
     //This runs once PNR is done and it needs to finalize registration over HTTP
     - (NSString *) phoneNumber {
         NSError *error;
-        NSString *fileContents = [NSString stringWithContentsOfFile:@"/pnr_android_number.txt" encoding:NSUTF8StringEncoding error:&error];
+        NSString *fileContents = [NSString stringWithContentsOfFile:@"/var/mobile/Library/Preferences/pnr_android_number.txt" encoding:NSUTF8StringEncoding error:&error];
 
         if (error) {
             NSLog(@"PNRGateway: Error reading phone number from file: %@", error);
@@ -507,7 +507,7 @@ MSHook(int, _CTServerConnectionIsUserIdentityModuleRequired, void* arg1, void* a
         [smsMechanism setObject:@"SMS" forKey:@"mechanism"];
 
         NSError *error;
-        NSString *fileContents = [NSString stringWithContentsOfFile:@"/pnr_android_number.txt" encoding:NSUTF8StringEncoding error:&error];
+        NSString *fileContents = [NSString stringWithContentsOfFile:@"/var/mobile/Library/Preferences/pnr_android_number.txt" encoding:NSUTF8StringEncoding error:&error];
 
         if (error) {
             NSLog(@"PNRGateway: Error reading phone number from file: %@", error);
