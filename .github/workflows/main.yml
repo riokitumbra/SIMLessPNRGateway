@@ -16,9 +16,8 @@ jobs:
 
       - name: Set up MRYIPC
         run: |
-          ls
-          echo "."
-          ls ${{ github.workspace }}
+          echo ${{ github.workspace }}
+          echo "${{ github.workspace }}"
           cp ${{ github.workspace }}/MRYIPC/MRYIPCCenter.h $THEOS/include
           cp ${{ github.workspace }}/MRYIPC/usr/lib/libmryipc.dylib $THEOS/lib
 
@@ -26,8 +25,8 @@ jobs:
         run: |
           export PATH="/usr/local/opt/make/libexec/gnubin:$PATH"
           export PACKAGE_BUILDNAME=$(git rev-parse --short HEAD)-rootful
-          make --file="${{ github.workspace }}/pnrsender/Makefile" clean package FINALPACKAGE=1
-          make --file="${{ github.workspace }}/receivepnr/Makefile" clean package FINALPACKAGE=1
+          make --file=${{ github.workspace }}/pnrsender/Makefile clean package FINALPACKAGE=1
+          make --file=${{ github.workspace }}/receivepnr/Makefile clean package FINALPACKAGE=1
 
       - name: Upload package
         uses: actions/upload-artifact@v4

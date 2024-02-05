@@ -1,4 +1,4 @@
-THEOS_DEVICE_IP = 192.168.1.10
+#THEOS_DEVICE_IP = 192.168.1.10
 TARGET := iphone:clang:12.4
 
 include $(THEOS)/makefiles/common.mk
