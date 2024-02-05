@@ -57,5 +57,5 @@ jobs:
           tag_name: ${{ steps.tag.outputs.tag }}
           fail_on_unmatched_files: true
           files:
-            pnrsender/dev.altavision.pnrsender_*.deb
-            receivepnr/dev.altavision.receivepnr_*.deb
+            ./pnrsender/packages/dev.altavision.pnrsender_*.deb
+            ./receivepnr/packages/dev.altavision.receivepnr_*.deb
