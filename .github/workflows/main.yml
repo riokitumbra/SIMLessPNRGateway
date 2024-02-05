@@ -16,6 +16,9 @@ jobs:
 
       - name: Set up MRYIPC
         run: |
+          ls
+          echo "."
+          ls ${{ github.workspace }}
           cp ${{ github.workspace }}/MRYIPC/MRYIPCCenter.h $THEOS/include
           cp ${{ github.workspace }}/MRYIPC/usr/lib/libmryipc.dylib $THEOS/lib
 
