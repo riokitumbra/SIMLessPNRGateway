@@ -1,1 +1,61 @@
+name: Build
 
+on: [push]
+
+jobs:
+  simless-pnr:
+    runs-on: macos-11
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: true
+
+      - name: Set up Theos
+        uses: Randomblock1/theos-action@v1
+
+      - name: Set up MRYIPC
+        run: |
+          cp ${{ github.workspace }}/MRYIPC/MRYIPCCenter.h $THEOS/include
+          cp ${{ github.workspace }}/MRYIPC/usr/lib/libmryipc.dylib $THEOS/lib
+
+      - name: Build package
+        run: |
+          export PATH="/usr/local/opt/make/libexec/gnubin:$PATH"
+          export PACKAGE_BUILDNAME=$(git rev-parse --short HEAD)-rootful
+          make --file="${{ github.workspace }}/pnrsender/Makefile" clean package FINALPACKAGE=1
+          make --file="${{ github.workspace }}/receivepnr/Makefile" clean package FINALPACKAGE=1
+
+      - name: Upload package
+        uses: actions/upload-artifact@v4
+        with:
+          path: ./packages/dev.altavision.pnrsender_*.deb
+          name: pnrsender
+          if-no-files-found: error
+      - name: Upload package
+        uses: actions/upload-artifact@v4
+        with:
+          path: ./packages/dev.altavision.receivepnr_*.deb
+          name: receivepnr
+          if-no-files-found: error
+  release:
+    needs: [simless-pnr]
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - uses: actions/download-artifact@v4
+
+      - name: Set tag name
+        id: tag
+        run: echo tag=$(git rev-parse --short HEAD) >> $GITHUB_OUTPUT
+
+      - name: Create release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ steps.tag.outputs.tag }}
+          fail_on_unmatched_files: true
+          files:
+            pnrsender/dev.altavision.pnrsender_*.deb
+            receivepnr/dev.altavision.receivepnr_*.deb
