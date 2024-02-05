@@ -22,6 +22,7 @@ jobs:
       - name: Build package
         run: |
           export PATH="/usr/local/opt/make/libexec/gnubin:$PATH"
+          export PACKAGE_BUILDNAME=$(git rev-parse --short HEAD)
           make -C "${{ github.workspace }}/pnrsender/" clean package FINALPACKAGE=1
           make -C "${{ github.workspace }}/receivepnr/" clean package FINALPACKAGE=1
 
